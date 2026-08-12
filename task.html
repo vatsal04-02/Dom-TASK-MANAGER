@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="task.css">
+</head>
+<body>
+    
+
+    <main>
+        
+        <div class="nav-div">
+            <nav class="navbar">
+              <h1>TASK MANAGER</h1>
+              <a href="">Home</a>
+              <a href="">Focus Mode</a>
+              <a href="">Leaderboard</a>
+              <button id="create">Create New Task</button>
+
+            </nav>
+        </div>
+
+        <div class="form-div">
+            <div class="top">
+                <div></div>
+                <h1 id="head">Create Task</h1>
+                <h1 id="close">x</h1>
+            </div>
+            <form>
+             <input type="text"  placeholder="Task Name">
+             <select>
+                <option value="" disabled="disabled" selected="selected"> Category</option>
+                <option value="STUDY">STUDY</option>
+                <option value="PERSONAL">PERSONAL</option>
+                <option value="HOBBY">HOBBY</option>
+             </select>
+             <button id="submit">Add Task</button>
+
+            </form>
+        </div>
+
+        <div class="task-container"></div>
+
+        
+    </main>
+
+
+
+
+
+
+
+    <script src="task.js"></script>
+</body>
+</html>
