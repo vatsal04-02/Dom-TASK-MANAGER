@@ -5,6 +5,11 @@
     src: url(./Outfit-VariableFont_wght.ttf);
 }
 
+@font-face {
+    font-family: font2;
+    src: url(./AeonikProTRIAL-Regular.otf);
+}
+
 
 
 *{
@@ -19,6 +24,12 @@ html,body{
     background-color: #0f1115;
     color: #f5f5f5;
     font-family: font1;
+    overflow: hidden;
+
+}
+
+main{
+    height: calc(100% - 100px);
 
 }
 
@@ -62,7 +73,7 @@ html,body{
     width: 100%;
     top: 0;
     left: 0;
-    background-color: rgba(0, 0, 0, 0.743);
+    background-color: rgba(0, 0, 0, 0.85);
     position: absolute;
     display: none;
     flex-direction: column;
@@ -133,4 +144,154 @@ select{
 .top #head{
     gap: 20px;
 
+}
+
+.task-container{
+    height: 100%;
+    width: 100%;
+    display: flex;
+    gap: 50px;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+
+}
+
+.task-card {
+    width: 280px;
+    min-height: 330px;
+
+    padding: 24px;
+
+    background: linear-gradient(
+        145deg,
+        #ffbd4a,
+        #f5a900
+    );
+
+    border-radius: 24px;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
+
+    transition: 0.3s ease;
+}
+
+.task-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+}
+
+.task-container.form-open .task-card {
+    pointer-events: none;
+}
+
+
+
+.card-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.task-number {
+    font-size: 13px;
+    font-weight: 600;
+    opacity: 0.55;
+    color: #0f1115;
+}
+
+
+.task-content h2 {
+    font-size: 32px;
+    margin-bottom: 8px;
+    color: #0f1115;
+}
+
+.task-content p {
+    font-size: 15px;
+    opacity: 0.65;
+    color: #181a1f;
+}
+
+
+.card-bottom {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.card-status {
+    padding: 7px 14px;
+
+    border-radius: 20px;
+
+    background: rgba(0, 0, 0, 0.12);
+
+    font-size: 12px;
+    font-weight: 600;
+}
+
+
+.home {
+    width: 80%;
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 65px 0 50px;
+    display: flex;
+    justify-content: center;
+    
+}
+
+.home h1 {
+    font-size: 48px;
+    line-height: 1.12;
+    font-weight: 600;
+    letter-spacing: -1.5px;
+    color: #ffffff;
+    
+}
+
+
+
+.home h1 span {
+    color: #85878c;
+}
+
+.home p {
+    margin-top: 22px;
+
+    color: #777b82;
+
+    font-size: 16px;
+
+    font-family: font2;
+}
+
+.hero-create {
+    margin-top: 30px;
+
+    padding: 13px 20px;
+
+    border: 1px solid rgba(255, 174, 0, 0.5);
+    border-radius: 12px;
+
+    background: transparent;
+    color: #ffae00;
+
+    font-size: 14px;
+    font-weight: 600;
+
+    cursor: pointer;
+
+    transition: 0.25s ease;
+}
+
+.hero-create:hover {
+    background: #ffae00;
+    color: #111;
+    transform: translateY(-2px);
 }
