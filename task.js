@@ -17,6 +17,9 @@ const toggleIcon = document.querySelector(".toggle-icon");
 
 const productsArr=[];
 
+let editingId = null;
+let editingCard = null;
+
 createHome.addEventListener('click' , ()=>{
     formDiv.style.display = "flex";
     document.querySelector(".task-container").classList.add("form-open");
@@ -47,25 +50,45 @@ form.addEventListener("submit", (event)=>{
         return;
     }
 
-    const id = crypto.randomUUID();
+    if(editingId!=null){
 
-    let obj ={
+        const index = productsArr.findIndex(
+        (obj) => obj.id === editingId);
+
+        productsArr[index].taskName = taskName;
+        productsArr[index].category = taskCategory;
+
+        editingCard.querySelector("h2").innerText = taskName;
+        editingCard.querySelector("p").innerText = taskCategory;
+
+        editingId = null;
+        editingCard = null;
+        
+    }else{
+        const id = crypto.randomUUID();
+
+      let obj ={
         id,
         taskName,
         category:taskCategory,
         status: "pending",
+      }
+
+       productsArr.push(obj);
+    
+       // called card function
+        Taskcard(obj);
+  
+        home.style.display="none";
+        console.log(productsArr);
     }
 
-    productsArr.push(obj);
+    form.reset();
+    formDiv.style.display="none";
+    document.querySelector(".task-container").classList.remove("form-open");
     
-    // called card function
-    Taskcard(obj);
-  
-   home.style.display="none";
-   console.log(productsArr);
-   form.reset();
-   formDiv.style.display="none";
-   document.querySelector(".task-container").classList.remove("form-open");
+
+    
     
 });
 
@@ -150,18 +173,42 @@ let Taskcard = (obj) =>{
 
    taskContainer.append(card);
 
+    
+   //Delete functionality
 
-   deleteBtn.addEventListener('click', ()=>{
-   
+    let del = deleteBtn.addEventListener('click', ()=>{
     const cardId = card.dataset.id;
     const index = productsArr.findIndex((obj) => obj.id === cardId);
     productsArr.splice(index, 1);
     card.remove();
 
-   })
+   });
+
+   //Complete Functionality
+
+    completeBtn.addEventListener('click', ()=>{
+      
+      obj.status ="Completed";
+      status.innerText = obj.status.toUpperCase();     
+      status.classList.add("completed");
+   });
+
+   //Edit functionality
+
+    editBtn.addEventListener('click',()=>{
+
+       taskInput.value= obj.taskName;
+       category.value= obj.category;
 
 
+       editingId = obj.id;
+       editingCard = card;
 
+       formDiv.style.display = "flex";
+       taskContainer.classList.add("form-open"); 
+       
+       
+    })
 
    
 
@@ -180,7 +227,6 @@ themeToggle.addEventListener('click', ()=>{
     }
 });
 
-//DELETE BUTTON WORKING
 
 
 

@@ -506,3 +506,13 @@ body.light-mode .toggle-icon {
 body.light-mode .background {
     opacity: 0.1;
 }
+
+.card-status.completed {
+    background: #123d2a;
+    color: #5ee6a8;
+}
+
+.task-container.form-open .task-card {
+    pointer-events: none;
+    transition: none;
+}
