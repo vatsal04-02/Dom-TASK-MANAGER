@@ -10,8 +10,17 @@ const taskInput = document.querySelector("input");
 const category = document.querySelector("select");
 
 const home = document.querySelector(".home");
+const createHome = document.querySelector("#hero-create");
+
+const themeToggle = document.querySelector("#theme-toggle");
+const toggleIcon = document.querySelector(".toggle-icon");
 
 const productsArr=[];
+
+createHome.addEventListener('click' , ()=>{
+    formDiv.style.display = "flex";
+    document.querySelector(".task-container").classList.add("form-open");
+});
 
 
 createBtn.addEventListener('click', ()=>{
@@ -86,7 +95,13 @@ let Taskcard = (obj) =>{
    taskNumber.innerText =`#${productsArr.length
     .toString()
     .padStart(2,"0")}`;
-   cardTop.append(taskNumber);
+
+   const deleteBtn = document.createElement("button");
+   deleteBtn.classList.add("delete-btn");
+   deleteBtn.innerText = "🗑";
+
+
+   cardTop.append(taskNumber, deleteBtn);
 
 
    //Content
@@ -112,7 +127,23 @@ let Taskcard = (obj) =>{
    status.classList.add("card-status");
    status.innerText = obj.status.toUpperCase();
 
-   cardBottom.append(status);
+   //Buttons container
+   const actions = document.createElement("div");
+   actions.classList.add("card-actions");
+
+   //Edit
+   const editBtn = document.createElement("button");
+   editBtn.classList.add("edit-btn");
+   editBtn.innerText = "Edit";
+
+   //Complete Button
+   const completeBtn = document.createElement("button");
+   completeBtn.classList.add("complete-btn");
+   completeBtn.innerText = "✓";
+
+   actions.append(editBtn,completeBtn);
+
+   cardBottom.append(status,actions);
 
    card.append(cardTop, content, cardBottom);
 
@@ -124,6 +155,19 @@ let Taskcard = (obj) =>{
    
 
 }
+
+
+//Dark theme toggle
+
+themeToggle.addEventListener('click', ()=>{
+    document.body.classList.toggle("light-mode");
+
+    if(document.body.classList.contains("light-mode")){
+        toggleIcon.innerText = "☀️";
+    }else{
+         toggleIcon.innerText = "🌙";
+    }
+});
 
 
 
