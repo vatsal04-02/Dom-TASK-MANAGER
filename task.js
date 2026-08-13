@@ -15,6 +15,7 @@ const createHome = document.querySelector("#hero-create");
 const themeToggle = document.querySelector("#theme-toggle");
 const toggleIcon = document.querySelector(".toggle-icon");
 
+
 const productsArr=[];
 
 let editingId = null;
@@ -173,50 +174,82 @@ let Taskcard = (obj) =>{
 
    taskContainer.append(card);
 
-    
+
+    taskContainer.addEventListener('click', (event)=>{
+
+      if(event.target.classList.contains("delete-btn")){
+        const cardId = card.dataset.id;
+        const index = productsArr.findIndex((obj) => obj.id === cardId);
+        productsArr.splice(index, 1);
+        card.remove();
+      }
+
+      if(event.target.classList.contains("edit-btn")){
+
+
+        obj.status = "pending";
+        status.innerText = "PENDING";
+        status.classList.remove("completed");
+        card.dataset.status = "pending";
+
+
+        taskInput.value= obj.taskName;
+        category.value= obj.category;
+
+
+        editingId = obj.id;
+        editingCard = card;
+
+        formDiv.style.display = "flex";
+        taskContainer.classList.add("form-open");
+        
+      }
+
+      if(event.target.classList.contains("complete-btn")){
+        obj.status ="Completed";
+        status.innerText = obj.status.toUpperCase();     
+        status.classList.add("completed");
+      }
+      
+   });  
+
    //Delete functionality
+  //     deleteBtn.addEventListener('click', ()=>{
+//     const cardId = card.dataset.id;
+//     const index = productsArr.findIndex((obj) => obj.id === cardId);
+//     productsArr.splice(index, 1);
+//     card.remove();
 
-    let del = deleteBtn.addEventListener('click', ()=>{
-    const cardId = card.dataset.id;
-    const index = productsArr.findIndex((obj) => obj.id === cardId);
-    productsArr.splice(index, 1);
-    card.remove();
-
-   });
+  //    });
 
    //Complete Functionality
 
-    completeBtn.addEventListener('click', ()=>{
+  //     completeBtn.addEventListener('click', ()=>{
       
-      obj.status ="Completed";
-      status.innerText = obj.status.toUpperCase();     
-      status.classList.add("completed");
-   });
+//       obj.status ="Completed";
+//       status.innerText = obj.status.toUpperCase();     
+//       status.classList.add("completed");
+  //    });
 
    //Edit functionality
 
-    editBtn.addEventListener('click',()=>{
+    // editBtn.addEventListener('click',()=>{
 
-       taskInput.value= obj.taskName;
-       category.value= obj.category;
+    //    taskInput.value= obj.taskName;
+    //    category.value= obj.category;
 
 
-       editingId = obj.id;
-       editingCard = card;
+    //    editingId = obj.id;
+    //    editingCard = card;
 
-       formDiv.style.display = "flex";
-       taskContainer.classList.add("form-open"); 
+    //    formDiv.style.display = "flex";
+    //    taskContainer.classList.add("form-open"); 
        
        
-    })
+    // })
 
-   
-
-}
-
-
+};
 //Dark theme toggle
-
 themeToggle.addEventListener('click', ()=>{
     document.body.classList.toggle("light-mode");
 
