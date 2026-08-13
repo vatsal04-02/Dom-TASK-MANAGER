@@ -182,22 +182,32 @@ let Taskcard = (obj) =>{
         const index = productsArr.findIndex((obj) => obj.id === cardId);
         productsArr.splice(index, 1);
         card.remove();
+        
+
+        if(productsArr.length === 0){
+            home.style.display ="flex";
+        }
       }
 
       if(event.target.classList.contains("edit-btn")){
 
+        const card = event.target.closest(".task-card");
+        const cardId = card.dataset.id;
+        const index = productsArr.findIndex(
+            (obj)=> obj.id === cardId
+        );
+        const task = productsArr[index];
 
-        obj.status = "pending";
         status.innerText = "PENDING";
         status.classList.remove("completed");
         card.dataset.status = "pending";
 
 
-        taskInput.value= obj.taskName;
-        category.value= obj.category;
+        taskInput.value= task.taskName;
+        category.value= task.category;
 
 
-        editingId = obj.id;
+        editingId = task.id;
         editingCard = card;
 
         formDiv.style.display = "flex";
@@ -206,11 +216,22 @@ let Taskcard = (obj) =>{
       }
 
       if(event.target.classList.contains("complete-btn")){
-        obj.status ="Completed";
-        status.innerText = obj.status.toUpperCase();     
+
+        const card = event.target.closest(".task-card");
+        const cardId = card.dataset.id;
+        const index = productsArr.findIndex(
+            (obj) => obj.id === cardId
+        );
+
+        productsArr[index].status ="Completed";
+        const status = card.querySelector(".card-status");
+    
+        status.innerText = "COMPLETED";     
         status.classList.add("completed");
+
+        card.dataset.status ="completed";
       }
-      
+
    });  
 
    //Delete functionality
