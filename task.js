@@ -96,6 +96,7 @@ let Taskcard = (obj) =>{
     .toString()
     .padStart(2,"0")}`;
 
+    //delete button
    const deleteBtn = document.createElement("button");
    deleteBtn.classList.add("delete-btn");
    deleteBtn.innerText = "🗑";
@@ -150,6 +151,16 @@ let Taskcard = (obj) =>{
    taskContainer.append(card);
 
 
+   deleteBtn.addEventListener('click', ()=>{
+   
+    const cardId = card.dataset.id;
+    const index = productsArr.findIndex((obj) => obj.id === cardId);
+    productsArr.splice(index, 1);
+    card.remove();
+
+   })
+
+
 
 
    
@@ -168,6 +179,9 @@ themeToggle.addEventListener('click', ()=>{
          toggleIcon.innerText = "🌙";
     }
 });
+
+//DELETE BUTTON WORKING
+
 
 
 
