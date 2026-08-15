@@ -14,9 +14,18 @@ const createHome = document.querySelector("#hero-create");
 
 const themeToggle = document.querySelector("#theme-toggle");
 const toggleIcon = document.querySelector(".toggle-icon");
+const taskContainer = document.querySelector(".task-container");
 
 
-const productsArr=[];
+
+let productsArr = JSON.parse(localStorage.getItem("tasks")) || [];
+
+function saveTasks(){
+    localStorage.setItem(
+        "tasks",
+        JSON.stringify(productsArr)
+    );
+}
 
 let editingId = null;
 let editingCard = null;
@@ -62,6 +71,8 @@ form.addEventListener("submit", (event)=>{
         editingCard.querySelector("h2").innerText = taskName;
         editingCard.querySelector("p").innerText = taskCategory;
 
+        saveTasks();
+
         editingId = null;
         editingCard = null;
         
@@ -76,12 +87,14 @@ form.addEventListener("submit", (event)=>{
       }
 
        productsArr.push(obj);
+
+       saveTasks();
     
        // called card function
         Taskcard(obj);
   
         home.style.display="none";
-        console.log(productsArr);
+        
     }
 
     form.reset();
@@ -97,8 +110,6 @@ form.addEventListener("submit", (event)=>{
 //Dynamically made the card 
 
 let Taskcard = (obj) =>{
-
-   const taskContainer = document.querySelector(".task-container");
    const card = document.createElement("div");
 
    //Task Id
@@ -106,7 +117,7 @@ let Taskcard = (obj) =>{
 
    //Custom data attributes
    card.dataset.id = obj.id;
-   card.dataset.status = "pending";
+   card.dataset.status = obj.status.toLowerCase();
    card.dataset.category = obj.category;
 
 
@@ -116,9 +127,11 @@ let Taskcard = (obj) =>{
 
    const taskNumber = document.createElement("span");
    taskNumber.classList.add("task-number");
-   taskNumber.innerText =`#${productsArr.length
+   const taskIndex = productsArr.indexOf(obj);
+
+   taskNumber.innerText = `#${(taskIndex + 1)
     .toString()
-    .padStart(2,"0")}`;
+    .padStart(2, "0")}`;
 
     //delete button
    const deleteBtn = document.createElement("button");
@@ -150,7 +163,12 @@ let Taskcard = (obj) =>{
 
    const status = document.createElement("span");
    status.classList.add("card-status");
+
    status.innerText = obj.status.toUpperCase();
+
+   if (obj.status.toLowerCase() === "completed") {
+    status.classList.add("completed");
+   }
 
    //Buttons container
    const actions = document.createElement("div");
@@ -174,22 +192,36 @@ let Taskcard = (obj) =>{
 
    taskContainer.append(card);
 
+}; 
 
-    taskContainer.addEventListener('click', (event)=>{
+taskContainer.addEventListener('click', (event)=>{
 
-      if(event.target.classList.contains("delete-btn")){
-        const cardId = card.dataset.id;
-        const index = productsArr.findIndex((obj) => obj.id === cardId);
-        productsArr.splice(index, 1);
-        card.remove();
-        
+    if (event.target.classList.contains("delete-btn")) {
 
-        if(productsArr.length === 0){
-            home.style.display ="flex";
-        }
-      }
+    const card = event.target.closest(".task-card");
 
-      if(event.target.classList.contains("edit-btn")){
+    if (!card) return;
+
+    const cardId = card.dataset.id;
+
+    const index = productsArr.findIndex(
+        (obj) => obj.id === cardId
+    );
+
+    if (index === -1) return;
+
+    productsArr.splice(index, 1);
+
+    saveTasks();
+
+    card.remove();
+
+    if (productsArr.length === 0) {
+        home.style.display = "flex";
+    }
+    }
+
+    if(event.target.classList.contains("edit-btn")){
 
         const card = event.target.closest(".task-card");
         const cardId = card.dataset.id;
@@ -198,13 +230,9 @@ let Taskcard = (obj) =>{
         );
         const task = productsArr[index];
 
-        status.innerText = "PENDING";
-        status.classList.remove("completed");
-        card.dataset.status = "pending";
-
-
         taskInput.value= task.taskName;
         category.value= task.category;
+        saveTasks();
 
 
         editingId = task.id;
@@ -213,9 +241,9 @@ let Taskcard = (obj) =>{
         formDiv.style.display = "flex";
         taskContainer.classList.add("form-open");
         
-      }
+    }
 
-      if(event.target.classList.contains("complete-btn")){
+    if(event.target.classList.contains("complete-btn")){
 
         const card = event.target.closest(".task-card");
         const cardId = card.dataset.id;
@@ -224,52 +252,31 @@ let Taskcard = (obj) =>{
         );
 
         productsArr[index].status ="Completed";
+        saveTasks();
         const status = card.querySelector(".card-status");
     
         status.innerText = "COMPLETED";     
         status.classList.add("completed");
 
         card.dataset.status ="completed";
-      }
+    }
+}); 
 
-   });  
+function loadTasks() {
 
-   //Delete functionality
-  //     deleteBtn.addEventListener('click', ()=>{
-//     const cardId = card.dataset.id;
-//     const index = productsArr.findIndex((obj) => obj.id === cardId);
-//     productsArr.splice(index, 1);
-//     card.remove();
+    if (productsArr.length > 0) {
+        home.style.display = "none";
+    } else {
+        home.style.display = "flex";
+    }
 
-  //    });
+    productsArr.forEach((obj) => {
+        Taskcard(obj);
+    });
+}
 
-   //Complete Functionality
+loadTasks();
 
-  //     completeBtn.addEventListener('click', ()=>{
-      
-//       obj.status ="Completed";
-//       status.innerText = obj.status.toUpperCase();     
-//       status.classList.add("completed");
-  //    });
-
-   //Edit functionality
-
-    // editBtn.addEventListener('click',()=>{
-
-    //    taskInput.value= obj.taskName;
-    //    category.value= obj.category;
-
-
-    //    editingId = obj.id;
-    //    editingCard = card;
-
-    //    formDiv.style.display = "flex";
-    //    taskContainer.classList.add("form-open"); 
-       
-       
-    // })
-
-};
 //Dark theme toggle
 themeToggle.addEventListener('click', ()=>{
     document.body.classList.toggle("light-mode");
@@ -280,6 +287,8 @@ themeToggle.addEventListener('click', ()=>{
          toggleIcon.innerText = "🌙";
     }
 });
+
+
 
 
 
