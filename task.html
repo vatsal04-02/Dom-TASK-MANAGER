@@ -76,6 +76,171 @@
 
         <div class="task-container"></div>
 
+
+        <!-- ============================= -->
+
+
+     <section class="learning-section">
+
+     <h2> Event Propagation Demonstration</h2>
+
+     <div class="propagation-structure">
+
+        <div id="grandparent">
+            <strong>Grandparent</strong>
+
+            <div id="parent">
+                <strong>Parent</strong>
+
+                <button id="child">
+                    Child Button
+                </button>
+
+            </div>
+        </div>
+
+     </div>
+
+
+     <h3>Event Bubbling</h3>
+
+     <p>Click the Child Button and check the console.</p>
+
+     <div class="example-box">
+        <p>Expected order:</p>
+        <p>Child</p>
+        <p>Parent</p>
+        <p>Grandparent</p>
+     </div>
+
+
+     <h3>Event Capturing</h3>
+
+     <p>Click the Child Button and check the console.</p>
+
+     <div class="propagation-structure">
+
+        <div id="capture-grandparent">
+            <strong>Grandparent</strong>
+
+            <div id="capture-parent">
+                <strong>Parent</strong>
+
+                <button id="capture-child">
+                    Child Button
+                </button>
+
+            </div>
+        </div>
+
+      </div>
+
+     <div class="example-box">
+        <p>Expected order:</p>
+        <p>Grandparent</p>
+        <p>Parent</p>
+        <p>Child</p>
+     </div>
+
+
+     <p>
+        <strong>Difference:</strong>
+        Event bubbling moves from Child → Parent → Grandparent,
+        while event capturing moves from Grandparent → Parent → Child.
+     </p>
+
+     </section>
+
+
+      <!-- ============================= -->
+
+
+      <section class="render-section">
+
+       <h2> Browser Rendering Pipeline</h2>
+
+      <p>
+        The browser converts HTML and CSS into a structure
+        that can be rendered on the screen.
+      </p>
+
+
+     <div class="render-pipeline">
+
+        <div class="pipeline-box">
+            <h3>HTML</h3>
+            <span>Structure of webpage</span>
+        </div>
+
+        <div class="pipeline-arrow">
+            ↓
+        </div>
+
+        <div class="pipeline-box">
+            <h3>Parsing</h3>
+            <span>Browser reads HTML</span>
+        </div>
+
+        <div class="pipeline-arrow">
+            ↓
+        </div>
+
+        <div class="pipeline-box">
+            <h3>Tokenization</h3>
+            <span>HTML converted into tokens</span>
+        </div>
+
+        <div class="pipeline-arrow">
+            ↓
+        </div>
+
+        <div class="pipeline-box">
+            <h3>DOM Tree</h3>
+            <span>HTML structure represented as a tree</span>
+        </div>
+
+
+        <div class="pipeline-css">
+
+            <div class="pipeline-box css-box">
+                <h3>CSS</h3>
+                <span>Styles of webpage</span>
+            </div>
+
+            <div class="pipeline-arrow">
+                ↓
+            </div>
+
+            <div class="pipeline-box css-box">
+                <h3>CSSOM Tree</h3>
+                <span>CSS represented as a tree</span>
+            </div>
+
+        </div>
+
+
+        <div class="pipeline-merge">
+            ↓
+        </div>
+
+
+        <div class="pipeline-box merge-box">
+            <h3>DOM Tree + CSSOM Tree</h3>
+        </div>
+
+        <div class="pipeline-arrow">
+            ↓
+        </div>
+
+        <div class="pipeline-box final-pipeline-box">
+            <h3>Render Tree</h3>
+            <span>Elements ready for rendering</span>
+        </div>
+
+      </div>
+
+      </section>
+
         
 
         

@@ -289,10 +289,60 @@ themeToggle.addEventListener('click', ()=>{
 });
 
 
+// =========================================
+// 7. EVENT PROPAGATION
+// =========================================
+
+const grandparentBox = document.querySelector("#grandparent");
+const parentBox = document.querySelector("#parent");
+const childButton = document.querySelector("#child");
+
+if (grandparentBox && parentBox && childButton) {
+
+    // Bubbling
+    grandparentBox.addEventListener("click", () => {
+        console.log("Grandparent");
+    });
+
+    parentBox.addEventListener("click", () => {
+        console.log("Parent");
+    });
+
+    childButton.addEventListener("click", () => {
+        console.log("Child");
+    });
+}
 
 
+// Capturing
 
+const captureGrandparentBox =
+    document.querySelector("#capture-grandparent");
 
+const captureParentBox =
+    document.querySelector("#capture-parent");
+
+const captureChildButton =
+    document.querySelector("#capture-child");
+
+if (
+    captureGrandparentBox &&
+    captureParentBox &&
+    captureChildButton
+) {
+
+    captureGrandparentBox.addEventListener("click", () => {
+        console.log("Grandparent");
+    }, true);
+
+    captureParentBox.addEventListener("click", () => {
+        console.log("Parent");
+    }, true);
+
+    captureChildButton.addEventListener("click", () => {
+        console.log("Child");
+    }, true);
+}
 
 
 

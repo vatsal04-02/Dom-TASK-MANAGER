@@ -114,12 +114,13 @@ main {
 }
 
 .form-div{
-    height: 100%;
+    height: 100vh;
     width: 100%;
     top: 0;
     left: 0;
     background-color: rgba(0, 0, 0, 0.85);
-    position: absolute;
+    position: fixed;
+    z-index: 1000;
     display: none;
     flex-direction: column;
     justify-content: center;
@@ -515,4 +516,281 @@ body.light-mode .background {
 .task-container.form-open .task-card {
     pointer-events: none;
     transition: none;
+}
+
+/* ========================================= */
+/* 7. EVENT PROPAGATION SECTION */
+/* ========================================= */
+
+.learning-section {
+    width: 80%;
+    max-width: 1200px;
+    margin: 80px auto;
+    padding: 40px;
+
+    background: rgba(15, 15, 17, 0.92);
+
+    border: 1px solid rgba(255, 174, 0, 0.15);
+    border-radius: 20px;
+
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.25);
+}
+
+.learning-section h2,
+.render-section h2 {
+    color: orange;
+    font-size: 32px;
+    margin-bottom: 20px;
+}
+
+.learning-section h3 {
+    margin-top: 35px;
+    margin-bottom: 12px;
+
+    color: #ffffff;
+}
+
+.learning-section p {
+    color: #b5b5b5;
+    margin-bottom: 12px;
+}
+
+
+/* Propagation structure */
+
+.propagation-structure {
+    margin-top: 20px;
+    padding: 25px;
+
+    background: #181311;
+
+    border: 1px solid #352720;
+    border-radius: 12px;
+}
+
+
+#grandparent,
+#capture-grandparent {
+    padding: 25px;
+
+    background: #241b17;
+
+    border: 1px solid #493328;
+    border-radius: 10px;
+}
+
+
+#parent,
+#capture-parent {
+    margin-top: 20px;
+    padding: 25px;
+
+    background: #30221c;
+
+    border: 1px solid #5a3b2b;
+    border-radius: 10px;
+}
+
+
+#child,
+#capture-child {
+    display: block;
+
+    margin-top: 20px;
+
+    padding: 10px 18px;
+
+    border: none;
+    border-radius: 10px;
+
+    background: orange;
+    color: #111;
+
+    font-family: font1;
+    font-weight: 600;
+
+    cursor: pointer;
+
+    transition: 0.2s ease;
+}
+
+
+#child:hover,
+#capture-child:hover {
+    transform: translateY(-2px);
+    background: #ffffff;
+}
+
+
+.example-box {
+    margin-top: 15px;
+
+    padding: 20px;
+
+    background: #181311;
+
+    border: 1px solid #352720;
+    border-radius: 10px;
+}
+
+.example-box p {
+    margin: 8px 0;
+    color: #ffffff;
+}
+
+
+/* ========================================= */
+/* 8. BROWSER RENDERING PIPELINE */
+/* ========================================= */
+
+.render-section {
+    width: 80%;
+    max-width: 1200px;
+
+    margin: 80px auto;
+    padding: 40px;
+
+    background: rgba(15, 15, 17, 0.92);
+
+    border: 1px solid rgba(255, 174, 0, 0.15);
+    border-radius: 20px;
+
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.25);
+}
+
+.render-section > p {
+    color: #aaa;
+    margin-bottom: 30px;
+}
+
+
+.render-pipeline {
+    padding: 35px;
+
+    background: #181311;
+
+    border: 1px solid #352720;
+    border-radius: 15px;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+
+/* Pipeline boxes */
+
+.pipeline-box {
+    width: 320px;
+
+    padding: 20px;
+
+    text-align: center;
+
+    background: #241b17;
+
+    border: 1px solid #493328;
+    border-radius: 12px;
+
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+}
+
+
+.pipeline-box h3 {
+    color: orange;
+    margin-bottom: 8px;
+}
+
+
+.pipeline-box span {
+    color: #aaa;
+    font-size: 14px;
+}
+
+
+/* Arrows */
+
+.pipeline-arrow,
+.pipeline-merge {
+    margin: 12px 0;
+
+    font-size: 25px;
+    color: orange;
+}
+
+
+/* CSS branch */
+
+.pipeline-css {
+    margin-top: 30px;
+
+    padding: 25px;
+
+    width: 100%;
+    max-width: 500px;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    background: rgba(36, 27, 23, 0.6);
+
+    border: 1px dashed rgba(255, 174, 0, 0.3);
+    border-radius: 12px;
+}
+
+
+.css-box {
+    width: 280px;
+}
+
+
+/* Merge */
+
+.merge-box {
+    border: 2px solid orange;
+}
+
+
+.final-pipeline-box {
+    border: 2px solid #5ee6a8;
+}
+
+
+/* Light mode */
+
+body.light-mode .learning-section,
+body.light-mode .render-section {
+    background: rgba(255, 255, 255, 0.92);
+}
+
+body.light-mode .learning-section h3 {
+    color: #17191d;
+}
+
+body.light-mode .learning-section p {
+    color: #555;
+}
+
+body.light-mode .render-section > p {
+    color: #555;
+}
+
+body.light-mode .propagation-structure,
+body.light-mode .example-box,
+body.light-mode .render-pipeline {
+    background: #f0f0f0;
+}
+
+body.light-mode #grandparent,
+body.light-mode #capture-grandparent,
+body.light-mode #parent,
+body.light-mode #capture-parent,
+body.light-mode .pipeline-box {
+    background: #ffffff;
+    color: #17191d;
+}
+
+body.light-mode .pipeline-box span {
+    color: #666;
 }
